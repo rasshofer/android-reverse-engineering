@@ -1,6 +1,6 @@
 # docker build -t rasshofer/android-reverse-engineering .
 
-FROM ubuntu:latest
+FROM ubuntu:14.04
 MAINTAINER Thomas Rasshofer <hello@thomasrasshofer.com>
 
 ENV DEX_TOOLS_VERSION "2.0"
