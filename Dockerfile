@@ -1,20 +1,29 @@
-# docker build -t rasshofer/android-reverse-engineering .
-
-FROM ubuntu:14.04
-MAINTAINER Thomas Rasshofer <hello@thomasrasshofer.com>
+FROM ubuntu:16.04
 
 ENV DEX_TOOLS_VERSION "2.0"
-ENV APKTOOL_VERSION "2.0.2"
+ENV APKTOOL_VERSION "2.4.1"
 ENV JD_CMD_VERSION "0.9.1.Final"
+ENV PROCYON_VERSION "0.5.36"
 
 RUN DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get -qq update
 RUN apt-get -yqq upgrade
 
-RUN apt-get install -yqq --force-yes openjdk-7-jre unzip wget
+RUN apt-get update
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository ppa:openjdk-r/ppa
+RUN apt-get update
+RUN apt-get install --fix-missing -y -f openjdk-8-jre
+RUN apt-get install -yqq unzip wget
 
 RUN mkdir /tools
+
+# Install Procyon Tools
+
+RUN mkdir /tools/procyon
+RUN wget -q -O "/tools/procyon/procyon.jar" "https://bitbucket.org/mstrobel/procyon/downloads/procyon-decompiler-$PROCYON_VERSION.jar"
+RUN chmod +x "/tools/procyon/procyon.jar"
 
 # Install Dex Tools
 
@@ -42,5 +51,5 @@ RUN apt-get autoremove -yqq
 RUN apt-get clean
 RUN rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-WORKDIR /data
-VOLUME ["/data"]
+WORKDIR /work
+VOLUME ["/work"]
