@@ -71,7 +71,7 @@ docker run --rm -v "$PWD/data:/data" $IMAGE_NAME /tools/jd-cmd/jd-cli -od "$JD_F
 
 echo "Running procyon..."
 
-docker run --rm -v "$PWD/work:/work" $IMAGE_NAME java -jar /tools/procyon/procyon.jar -jar "$D2J_FILE" -o "$PROCYON_FOLDER"
+docker run --rm -v "$PWD/data:/data" $IMAGE_NAME java -jar /tools/procyon/procyon.jar -jar "$D2J_FILE" -o "$PROCYON_FOLDER"
 ```
 
 ## »Reverse engineering«

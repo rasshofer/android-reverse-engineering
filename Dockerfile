@@ -51,5 +51,5 @@ RUN apt-get autoremove -yqq
 RUN apt-get clean
 RUN rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-WORKDIR /work
-VOLUME ["/work"]
+WORKDIR /data
+VOLUME ["/data"]
