@@ -31,6 +31,7 @@ The container’s workdir is `/data`. `/tools` contains all the required tools.
 - Running apktool → `/tools/apktool/apktool`
 - Running dex2jar → `/tools/dex-tools/d2j-dex2jar.sh`
 - Running jd-cmd → `/tools/jd-cmd/jd-cli`
+- Running procyon → `/tools/procyon/procyon`
 
 ### Examples
 
@@ -48,6 +49,7 @@ UNZIP_FOLDER="$OUTPUT/unzipped"
 APKTOOL_FOLDER="$OUTPUT/apktool"
 D2J_FILE="$OUTPUT/dex2jar.jar"
 JD_FOLDER="$OUTPUT/jd"
+PROCYON_FOLDER="$OUTPUT/procyon"
 
 mkdir "data/fb_$ID"
 
@@ -66,6 +68,10 @@ docker run --rm -v "$PWD/data:/data" $IMAGE_NAME /tools/dex-tools/d2j-dex2jar.sh
 echo "Running jd-cmd..."
 
 docker run --rm -v "$PWD/data:/data" $IMAGE_NAME /tools/jd-cmd/jd-cli -od "$JD_FOLDER" "$D2J_FILE"
+
+echo "Running procyon..."
+
+docker run --rm -v "$PWD/work:/work" $IMAGE_NAME java -jar /tools/procyon/procyon.jar -jar "$D2J_FILE" -o "$PROCYON_FOLDER"
 ```
 
 ## »Reverse engineering«
